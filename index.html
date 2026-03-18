@@ -398,10 +398,6 @@
   .success-line { width:60px; height:1px; background:var(--gold); margin:24px auto; }
 
   /* ─── SUPABASE STATUS ─── */
-  .db-status { position:fixed; bottom:24px; right:24px; z-index:8999; display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--border); padding:8px 16px; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); transition:all .3s; }
-  .db-dot { width:8px; height:8px; border-radius:50%; background:var(--muted); }
-  .db-status.connected .db-dot { background:var(--green); animation:pulse 2s infinite; }
-  .db-status.connected { color:var(--text); border-color:rgba(46,204,113,.3); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
   @keyframes pdpSpin {to{transform:rotate(360deg)}}
 
@@ -440,12 +436,6 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="toast" id="toast"></div>
-
-<!-- DB STATUS BADGE -->
-<div class="db-status" id="dbStatus">
-  <div class="db-dot"></div>
-  <span id="dbStatusText">Connecting…</span>
-</div>
 
 <!-- NAV -->
 <nav id="nav">
