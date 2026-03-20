@@ -1052,25 +1052,16 @@ async function processPayment(){
   const address = document.getElementById('checkoutAddress').value.trim();
   const city    = document.getElementById('checkoutCity').value.trim();
 
-  // ── Input validation ──
-  if(!name||!email||!phone||!address||!city){
-    showToast('Please fill in all fields'); return;
-  }
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    showToast('Please enter a valid email'); return;
-  }
-  if(phone.replace(/\D/g,'').length < 10){
-    showToast('Please enter a valid phone number'); return;
-  }
-  if(cart.length === 0){
-    showToast('Your cart is empty'); return;
-  }
+  if(!name||!email||!phone||!address||!city){ showToast('Please fill in all fields'); return; }
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showToast('Please enter a valid email'); return; }
+  if(phone.replace(/\D/g,'').length < 10){ showToast('Please enter a valid phone number'); return; }
+  if(cart.length === 0){ showToast('Your cart is empty'); return; }
 
-  const totalKobo  = getTotal() * 100; // Paystack uses kobo
+  const totalKobo  = getTotal() * 100;
   const totalNaira = getTotal();
   const orderRef   = 'NVX-' + Date.now();
+  const edgeURL    = SUPABASE_URL.replace('.supabase.co','.functions.supabase.co') + '/verify-payment';
 
-  // ── Order data (sent to Edge Function after payment) ──
   const orderData = {
     customer_name:    name,
     customer_email:   email,
@@ -1081,59 +1072,72 @@ async function processPayment(){
     total_amount:     totalNaira,
   };
 
-  // ── PAYSTACK ──
+  function saveOrder(provider, reference) {
+    console.log('Saving order — provider:', provider, 'ref:', reference, 'edgeURL:', edgeURL);
+    return fetch(edgeURL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ provider: provider, reference: reference, orderData: orderData })
+    })
+    .then(function(r){
+      console.log('Edge Function HTTP status:', r.status);
+      return r.json();
+    })
+    .then(function(result){
+      console.log('Edge Function response:', JSON.stringify(result));
+      return result;
+    })
+    .catch(function(err){
+      console.error('Edge Function fetch failed:', err.message);
+      return { success: false };
+    });
+  }
+
+  function showSuccess(ref) {
+    cart = []; updateCartUI();
+    document.getElementById('successRef').textContent = 'Order Reference: ' + ref;
+    document.getElementById('successOverlay').classList.add('open');
+  }
+
   if(checkoutProvider === 'paystack'){
     const handler = PaystackPop.setup({
-      key: 'pk_test_fddafa0b4ac5a69adb4dd27cddaf8fd17add249a', // 🔑 Replace with your LIVE public key
-      email, amount: totalKobo, currency: 'NGN', ref: orderRef,
-      metadata: { custom_fields:[{display_name:'Customer',variable_name:'name',value:name},{display_name:'Phone',variable_name:'phone',value:phone}]},
+      key: 'pk_test_fddafa0b4ac5a69adb4dd27cddaf8fd17add249a',
+      email: email, amount: totalKobo, currency: 'NGN', ref: orderRef,
+      metadata: { custom_fields:[
+        {display_name:'Customer', variable_name:'name', value:name},
+        {display_name:'Phone', variable_name:'phone', value:phone}
+      ]},
       callback: function(response){
-  closeModal();
-  showToast('Payment received — confirming order…');
-  var ref = response.reference;
-  var snap = JSON.parse(JSON.stringify(orderData));
-  fetch(SUPABASE_URL.replace('.supabase.co','.functions.supabase.co') + '/verify-payment', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({ provider:'paystack', reference: ref, orderData: snap })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(result){
-    cart=[]; updateCartUI();
-    document.getElementById('successRef').textContent='Order Reference: ' + ref;
-    document.getElementById('successOverlay').classList.add('open');
-  })
-  .catch(function(){
-    cart=[]; updateCartUI();
-    document.getElementById('successRef').textContent='Order Reference: ' + ref;
-    document.getElementById('successOverlay').classList.add('open');
-  });
-},
+        closeModal();
+        showToast('Payment received — saving order…');
+        saveOrder('paystack', response.reference).then(function(){
+          showSuccess(response.reference);
+        });
+      },
       onClose: function(){
         showToast('Payment window closed — no charge made');
       }
     });
     handler.openIframe();
 
-  // ── FLUTTERWAVE ──
   } else {
     FlutterwaveCheckout({
-      public_key: 'FLWPUBK-YOUR_FLUTTERWAVE_PUBLIC_KEY-X', // 🔑 Replace with your LIVE public key
+      public_key: 'FLWPUBK-YOUR_FLUTTERWAVE_PUBLIC_KEY-X',
       tx_ref: orderRef, amount: totalNaira, currency: 'NGN',
       payment_options: 'card,mobilemoney,ussd,banktransfer',
-      customer: { email, phone_number: phone, name },
-      meta: { address, city },
+      customer: { email: email, phone_number: phone, name: name },
+      meta: { address: address, city: city },
       customizations: {
         title: 'Nuvox Store',
-        description: `${cart.reduce((s,i)=>s+i.qty,0)} item(s) — ₦${totalNaira.toLocaleString('en-NG')}`,
+        description: cart.reduce((s,i)=>s+i.qty,0) + ' item(s)',
       },
-      callback: async function(data){
+      callback: function(data){
         if(data.status === 'successful' || data.status === 'completed'){
           closeModal();
-          showToast('Payment received — confirming order…');
-          // Verify on server and save order securely
-          const result = await verifyAndSaveOrder('flutterwave', String(data.transaction_id), orderData);
-          onPaymentSuccess(result.ref || orderRef, name);
+          showToast('Payment received — saving order…');
+          saveOrder('flutterwave', String(data.transaction_id)).then(function(){
+            showSuccess(orderRef);
+          });
         }
       },
       onclose: function(){
