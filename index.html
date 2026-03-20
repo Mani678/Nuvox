@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>NUVOX — Premium Electronics</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
-<script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://js.paystack.co/v2/inline.js"></script>
 <script src="https://checkout.flutterwave.com/v3.js"></script>
 <!-- Supabase JS SDK -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1099,8 +1099,10 @@ async function processPayment(){
     document.getElementById('successOverlay').classList.add('open');
   }
 
-  if(checkoutProvider === 'paystack'){
-    var paystackHandler = PaystackPop.setup({
+if(checkoutProvider === 'paystack'){
+    closeModal();
+    var popup = new PaystackPop();
+    popup.newTransaction({
       key: 'pk_test_fddafa0b4ac5a69adb4dd27cddaf8fd17add249a',
       email: email,
       amount: totalKobo,
@@ -1108,14 +1110,13 @@ async function processPayment(){
       ref: orderRef,
       onSuccess: function(transaction){
         console.log('PAYSTACK SUCCESS', transaction);
-        closeModal();
         showToast('Payment received — saving order…');
         saveOrder('paystack', transaction.reference).then(function(){
           showSuccess(transaction.reference);
         });
       },
       onCancel: function(){
-        showToast('Payment window closed — no charge made');
+        showToast('Payment cancelled — no charge made');
       }
     });
     paystackHandler.openIframe();
