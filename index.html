@@ -712,10 +712,13 @@ function processPayment() {
   function saveOrder(provider, reference, onDone) {
     console.log('Calling Edge Function — provider:', provider, 'ref:', reference);
     fetch(EDGE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ provider: provider, reference: reference, orderData: orderData })
-    })
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY
+  },
+  body: JSON.stringify({ provider: provider, reference: reference, orderData: orderData })
+})
     .then(function(r) {
       console.log('Edge Function status:', r.status);
       return r.json();
