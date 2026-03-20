@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Track Order — NUVOX</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--black:#080808;--surface:#141414;--border:rgba(201,168,76,0.18);--text:#F0EDE6;--muted:#7A7570;--white:#FAFAF8;--green:#2ECC71;--amber:#F39C12;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:rgba(8,8,8,.97);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--gold);text-decoration:none;}
+.nav-back{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;}
+.nav-back:hover{color:var(--gold);}
+.page-hero{padding:160px 60px 80px;border-bottom:1px solid var(--border);}
+.page-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,100px);font-weight:300;line-height:.9;color:var(--white);}
+.page-title em{font-style:italic;color:var(--gold);}
+.content-wrap{max-width:680px;margin:0 auto;padding:80px 60px;}
+.search-card{background:var(--surface);padding:48px;margin-bottom:40px;}
+.search-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.search-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:8px;}
+.search-sub{font-size:13px;color:var(--muted);margin-bottom:32px;line-height:1.7;}
+.search-row{display:flex;gap:0;}
+.search-input{flex:1;padding:16px 20px;background:var(--black);border:1px solid var(--border);border-right:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;-webkit-appearance:none;border-radius:0;}
+.search-input:focus{border-color:var(--gold);}
+.search-input::placeholder{color:var(--muted);}
+.search-btn{padding:16px 28px;background:var(--gold);color:var(--black);border:none;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap;}
+.search-btn:hover{background:var(--gold-light);}
+.error-msg{display:none;font-size:13px;color:#E74C3C;margin-top:12px;}
+.result-card{display:none;background:var(--surface);border-top:2px solid var(--gold);}
+.result-header{padding:28px 32px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.result-ref{font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:2px;color:var(--muted);}
+.result-ref span{color:var(--gold);font-weight:500;}
+.result-body{padding:32px;}
+.result-section{margin-bottom:28px;}
+.result-section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.result-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--white);}
+.status-track{display:flex;align-items:center;gap:0;margin:24px 0;}
+.status-step{display:flex;flex-direction:column;align-items:center;flex:1;}
+.status-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--border);background:var(--black);display:flex;align-items:center;justify-content:center;font-size:12px;position:relative;z-index:1;transition:all .3s;}
+.status-dot.done{border-color:var(--green);background:var(--green);color:var(--black);}
+.status-dot.active{border-color:var(--gold);background:var(--gold);color:var(--black);}
+.status-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-top:8px;text-align:center;}
+.status-label.active{color:var(--gold);}
+.status-line{flex:1;height:2px;background:var(--border);margin-top:-16px;position:relative;top:-8px;}
+.status-line.done{background:var(--green);}
+.items-list{display:flex;flex-direction:column;gap:12px;}
+.order-item{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);}
+.order-item:last-child{border-bottom:none;}
+.order-item-name{font-size:14px;color:var(--text);}
+.order-item-qty{font-size:12px;color:var(--muted);}
+.order-item-price{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);}
+.result-total{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:1px solid var(--border);margin-top:8px;}
+.total-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.total-amount{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);}
+.result-footer{padding:24px 32px;border-top:1px solid var(--border);background:rgba(201,168,76,.03);}
+.result-note{font-size:13px;color:var(--muted);line-height:1.7;}
+.badge{display:inline-block;padding:5px 12px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;}
+.badge-green{background:rgba(46,204,113,.12);color:var(--green);border:1px solid rgba(46,204,113,.25);}
+.badge-amber{background:rgba(243,156,18,.12);color:var(--amber);border:1px solid rgba(243,156,18,.25);}
+.badge-blue{background:rgba(52,152,219,.12);color:#3498DB;border:1px solid rgba(52,152,219,.25);}
+.loading-state{display:none;text-align:center;padding:40px;color:var(--muted);}
+.spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+footer{background:var(--black);border-top:1px solid var(--border);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:12px;color:var(--muted);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold);}
+@media(max-width:768px){nav{padding:20px 24px;}.page-hero{padding:120px 24px 60px;}.content-wrap{padding:60px 24px;}.search-card{padding:32px 24px;}.search-row{flex-direction:column;}.search-input{border-right:1px solid var(--border);border-bottom:none;}.search-btn{width:100%;}.result-body{padding:24px;}.result-header{padding:20px 24px;}.status-label{font-size:9px;}footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">NUVOX</a>
+  <a href="/" class="nav-back">← Back to Store</a>
+</nav>
+<div class="page-hero">
+  <div class="page-label">Order Status</div>
+  <h1 class="page-title">Track Your <em>Order</em></h1>
+</div>
+<div class="content-wrap">
+  <div class="search-card">
+    <div class="search-label">Order Lookup</div>
+    <div class="search-title">Enter Your Order Reference</div>
+    <div class="search-sub">Your order reference number was included in your order confirmation. It starts with NVX- followed by numbers. Example: NVX-1774003965372</div>
+    <div class="search-row">
+      <input type="text" class="search-input" id="trackInput" placeholder="e.g. NVX-1774003965372" onkeydown="if(event.key==='Enter')trackOrder()"/>
+      <button class="search-btn" onclick="trackOrder()">Track Order</button>
+    </div>
+    <div class="error-msg" id="errorMsg"></div>
+  </div>
+
+  <div class="loading-state" id="loadingState">
+    <div class="spinner"></div>
+    Looking up your order…
+  </div>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-header">
+      <div>
+        <div class="result-ref">Order Reference: <span id="rRef"></span></div>
+        <div style="margin-top:6px;" id="rDate"></div>
+      </div>
+      <div id="rPayBadge"></div>
+    </div>
+    <div class="result-body">
+      <div class="result-section">
+        <div class="result-section-label">Delivery Status</div>
+        <div class="status-track" id="statusTrack"></div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-label">Customer Details</div>
+        <div style="font-size:14px;color:var(--text);line-height:1.8;" id="rCustomer"></div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-label">Items Ordered</div>
+        <div class="items-list" id="rItems"></div>
+        <div class="result-total"><span class="total-label">Order Total</span><span class="total-amount" id="rTotal"></span></div>
+      </div>
+    </div>
+    <div class="result-footer">
+      <div class="result-note" id="rNote"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <span class="footer-logo">NUVOX</span>
+  <span class="footer-copy">© 2026 Nuvox. All rights reserved.</span>
+  <span class="footer-copy">Made by Opsfera</span>
+</footer>
+<script>
+const SUPABASE_URL = 'https://klbsasgbgvfpojzoruil.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtsYnNhc2diZ3ZmcG9qem9ydWlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4NTE2NjYsImV4cCI6MjA4OTQyNzY2Nn0.KrFCsSBz_j6GkbM0tdmKOhzBFBg398qUcAFWSHkEGSE';
+
+let db = null;
+try {
+  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
+} catch(e) { console.warn('Supabase init failed'); }
+
+const statusSteps = ['pending','processing','shipped','delivered'];
+const statusLabels = ['Pending','Processing','Shipped','Delivered'];
+const statusNotes = {
+  pending: 'Your order has been received and payment confirmed. We are preparing your items.',
+  processing: 'Your order is being packed and prepared for dispatch. You will be notified when it ships.',
+  shipped: 'Your order is on its way! We have dispatched it via our logistics partner. Estimated delivery: 1–3 business days depending on your location.',
+  delivered: 'Your order has been delivered. We hope you love your purchase! If you have any issues, contact us within 7 days.',
+};
+
+async function trackOrder() {
+  const ref = document.getElementById('trackInput').value.trim().toUpperCase();
+  const errorEl = document.getElementById('errorMsg');
+  const loadingEl = document.getElementById('loadingState');
+  const resultEl = document.getElementById('resultCard');
+
+  errorEl.style.display = 'none';
+  resultEl.style.display = 'none';
+
+  if (!ref) { showError('Please enter your order reference number.'); return; }
+  if (!ref.startsWith('NVX-')) { showError('Order references start with NVX- — please check and try again.'); return; }
+
+  loadingEl.style.display = 'block';
+
+  try {
+    const { data, error } = await db.from('orders').select('*').eq('ref', ref).single();
+    loadingEl.style.display = 'none';
+
+    if (error || !data) { showError('No order found with that reference. Please check the number and try again. If you need help, contact us at emmaire7@gmail.com'); return; }
+
+    renderResult(data);
+  } catch(e) {
+    loadingEl.style.display = 'none';
+    showError('Unable to look up order right now. Please try again or contact emmaire7@gmail.com');
+  }
+}
+
+function renderResult(o) {
+  document.getElementById('rRef').textContent = o.ref;
+  document.getElementById('rDate').innerHTML = `<span style="font-size:12px;color:var(--muted);">Placed on ${new Date(o.created_at).toLocaleDateString('en-NG',{day:'numeric',month:'long',year:'numeric'})}</span>`;
+
+  const payBadge = o.payment_status === 'paid'
+    ? '<span class="badge badge-green">Payment Confirmed</span>'
+    : '<span class="badge badge-amber">Payment Pending</span>';
+  document.getElementById('rPayBadge').innerHTML = payBadge;
+
+  // Status tracker
+  const currentStep = statusSteps.indexOf(o.fulfilment_status);
+  let trackHtml = '';
+  statusSteps.forEach((step, i) => {
+    const isDone = i < currentStep;
+    const isActive = i === currentStep;
+    const dotClass = isDone ? 'done' : isActive ? 'active' : '';
+    const labelClass = isActive ? 'active' : '';
+    trackHtml += `<div class="status-step"><div class="status-dot ${dotClass}">${isDone ? '✓' : i+1}</div><div class="status-label ${labelClass}">${statusLabels[i]}</div></div>`;
+    if (i < statusSteps.length - 1) {
+      trackHtml += `<div class="status-line ${isDone ? 'done' : ''}"></div>`;
+    }
+  });
+  document.getElementById('statusTrack').innerHTML = trackHtml;
+
+  // Customer
+  document.getElementById('rCustomer').innerHTML = `
+    <strong style="color:var(--white);">${o.customer_name}</strong><br/>
+    ${o.delivery_address}, ${o.city}
+  `;
+
+  // Items
+  const items = Array.isArray(o.items) ? o.items : [];
+  document.getElementById('rItems').innerHTML = items.map(item => `
+    <div class="order-item">
+      <div><div class="order-item-name">${item.name}</div><div class="order-item-qty">Qty: ${item.qty}</div></div>
+      <div class="order-item-price">₦${Number(item.price).toLocaleString('en-NG')}</div>
+    </div>
+  `).join('') || '<div style="color:var(--muted);font-size:13px;">No item details available.</div>';
+
+  document.getElementById('rTotal').textContent = '₦' + Number(o.total_amount).toLocaleString('en-NG');
+
+  // Note
+  const note = statusNotes[o.fulfilment_status] || 'Your order is being processed.';
+  document.getElementById('rNote').innerHTML = `<strong style="color:var(--text);">Status Update:</strong> ${note}<br/><br/>Questions? Email us at <a href="mailto:emmaire7@gmail.com" style="color:var(--gold);">emmaire7@gmail.com</a> with your order reference.`;
+
+  document.getElementById('resultCard').style.display = 'block';
+  document.getElementById('resultCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+</script>
+</body>
+</html>

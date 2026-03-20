@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About Us — NUVOX</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--black:#080808;--deep:#0E0E0E;--surface:#141414;--border:rgba(201,168,76,0.18);--text:#F0EDE6;--muted:#7A7570;--white:#FAFAF8;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:rgba(8,8,8,.97);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--gold);text-decoration:none;}
+.nav-back{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+.page-hero{padding:160px 60px 80px;border-bottom:1px solid var(--border);}
+.page-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,100px);font-weight:300;line-height:.9;color:var(--white);}
+.page-title em{font-style:italic;color:var(--gold);}
+.content-wrap{max-width:800px;margin:0 auto;padding:80px 60px;}
+.section-block{margin-bottom:60px;}
+.block-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.block-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);margin-bottom:20px;}
+.block-text{font-size:15px;color:var(--muted);line-height:1.9;}
+.divider{height:1px;background:var(--border);margin:60px 0;}
+.promise-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:40px;}
+.promise-card{background:var(--surface);padding:36px 32px;border-top:2px solid transparent;transition:border-color .3s;}
+.promise-card:hover{border-top-color:var(--gold);}
+.promise-icon{font-size:28px;margin-bottom:16px;}
+.promise-title{font-size:14px;font-weight:500;letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:8px;}
+.promise-text{font-size:13px;color:var(--muted);line-height:1.7;}
+.tagline-block{background:var(--gold);color:var(--black);padding:60px;text-align:center;margin:60px 0;}
+.tagline{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,48px);font-weight:300;font-style:italic;line-height:1.3;}
+footer{background:var(--black);border-top:1px solid var(--border);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:12px;color:var(--muted);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold);}
+@media(max-width:768px){nav{padding:20px 24px;}.page-hero{padding:120px 24px 60px;}.content-wrap{padding:60px 24px;}.promise-grid{grid-template-columns:1fr;}.tagline-block{padding:40px 24px;}.footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">NUVOX</a>
+  <a href="/" class="nav-back">← Back to Store</a>
+</nav>
+<div class="page-hero">
+  <div class="page-label">Our Story</div>
+  <h1 class="page-title">About <em>Nuvox</em></h1>
+</div>
+<div class="content-wrap">
+  <div class="section-block">
+    <div class="block-label">Our Vision</div>
+    <p class="block-text">To become Nigeria's most trusted premium electronics destination — the first name people think of when they want quality, speed, and genuine peace of mind in online shopping.</p>
+  </div>
+  <div class="divider"></div>
+  <div class="section-block">
+    <div class="block-label">Our Mission</div>
+    <p class="block-text">To deliver a seamless, trustworthy, and refined online shopping experience for premium electronics — offering customers carefully curated products backed by secure payments and reliable delivery across Nigeria.</p>
+  </div>
+  <div class="divider"></div>
+  <div class="section-block">
+    <div class="block-label">Who We Are</div>
+    <p class="block-text" style="margin-bottom:20px;">At Nuvox, we believe premium electronics shopping in Nigeria should feel effortless, transparent, and rewarding. Founded in Port Harcourt, Rivers State, we were built on a simple frustration — too many online stores in Nigeria overpromise and underdeliver. We exist to change that.</p>
+    <p class="block-text" style="margin-bottom:20px;">We are not just another electronics store. Nuvox is a curated luxury electronics destination — we stock only what we believe in, price everything fairly, and stand behind every product we sell. From flagship smartphones to premium audio equipment, professional laptops to cutting-edge cameras, every item in our catalogue is selected with one person in mind: you.</p>
+    <p class="block-text">What sets us apart is our obsession with the details — the quality of the product, the security of the payment, the speed of delivery, and the honesty of our communication. When you shop with Nuvox, what you see is exactly what you get. No hidden charges, no substituted products, no empty promises.</p>
+  </div>
+</div>
+<div class="tagline-block">
+  <div class="tagline">"Where Technology Meets Luxury — Browse, Pay, Relax."</div>
+</div>
+<div class="content-wrap" style="padding-top:0;">
+  <div class="section-block">
+    <div class="block-label">Our Promise</div>
+    <div class="promise-grid">
+      <div class="promise-card"><div class="promise-icon">🔐</div><div class="promise-title">Secure Payments</div><div class="promise-text">Every transaction is protected by Paystack and Flutterwave — Nigeria's most trusted payment gateways. Your card details are never stored.</div></div>
+      <div class="promise-card"><div class="promise-icon">📦</div><div class="promise-title">Reliable Delivery</div><div class="promise-text">We partner with trusted transport and logistics services to deliver across Nigeria. Port Harcourt orders receive priority handling.</div></div>
+      <div class="promise-card"><div class="promise-icon">✅</div><div class="promise-title">Genuine Products</div><div class="promise-text">Every product we sell is authentic. We source directly from authorised distributors and verified suppliers only.</div></div>
+      <div class="promise-card"><div class="promise-icon">💬</div><div class="promise-title">Real Support</div><div class="promise-text">We are real people who respond to real problems. Reach us at emmaire7@gmail.com and we'll get back to you promptly.</div></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <span class="footer-logo">NUVOX</span>
+  <span class="footer-copy">© 2026 Nuvox. All rights reserved.</span>
+  <span class="footer-copy">Made by Opsfera</span>
+</footer>
+</body>
+</html>

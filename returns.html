@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Returns & Refunds — NUVOX</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+:root{--gold:#C9A84C;--black:#080808;--surface:#141414;--border:rgba(201,168,76,0.18);--text:#F0EDE6;--muted:#7A7570;--white:#FAFAF8;--green:#2ECC71;--red:#E74C3C;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:rgba(8,8,8,.97);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--gold);text-decoration:none;}
+.nav-back{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;}
+.nav-back:hover{color:var(--gold);}
+.page-hero{padding:160px 60px 80px;border-bottom:1px solid var(--border);}
+.page-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,100px);font-weight:300;line-height:.9;color:var(--white);}
+.page-title em{font-style:italic;color:var(--gold);}
+.content-wrap{max-width:800px;margin:0 auto;padding:80px 60px;}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:60px;}
+.summary-card{background:var(--surface);padding:32px 28px;text-align:center;}
+.summary-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;}
+.summary-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.section-block{margin-bottom:48px;}
+.block-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.block-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:16px;}
+.block-text{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:16px;}
+.list-item{display:flex;gap:12px;margin-bottom:12px;font-size:14px;color:var(--muted);line-height:1.7;}
+.list-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:8px;}
+.eligible-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin:24px 0;}
+.eligible-card{padding:28px 24px;font-size:13px;line-height:1.7;}
+.eligible-card.yes{background:rgba(46,204,113,.07);border-top:2px solid var(--green);}
+.eligible-card.no{background:rgba(231,76,60,.07);border-top:2px solid var(--red);}
+.eligible-title{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.eligible-card.yes .eligible-title{color:var(--green);}
+.eligible-card.no .eligible-title{color:var(--red);}
+.eligible-card ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.eligible-card li{color:var(--muted);}
+.steps-list{counter-reset:steps;display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid var(--border);}
+.step:last-child{border-bottom:none;}
+.step-num{width:36px;height:36px;border-radius:50%;background:rgba(201,168,76,.15);color:var(--gold);font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-content{}
+.step-title{font-size:14px;font-weight:500;color:var(--white);margin-bottom:6px;}
+.step-text{font-size:13px;color:var(--muted);line-height:1.7;}
+.divider{height:1px;background:var(--border);margin:48px 0;}
+.contact-cta{background:var(--surface);padding:40px;text-align:center;margin-top:48px;}
+.cta-text{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:8px;}
+.cta-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.cta-btn{display:inline-block;background:var(--gold);color:var(--black);padding:14px 32px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s;}
+.cta-btn:hover{background:#E8C97A;}
+footer{background:var(--black);border-top:1px solid var(--border);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:12px;color:var(--muted);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold);}
+@media(max-width:768px){nav{padding:20px 24px;}.page-hero{padding:120px 24px 60px;}.content-wrap{padding:60px 24px;}.summary-grid{grid-template-columns:1fr;}.eligible-grid{grid-template-columns:1fr;}footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">NUVOX</a>
+  <a href="/" class="nav-back">← Back to Store</a>
+</nav>
+<div class="page-hero">
+  <div class="page-label">Customer Protection</div>
+  <h1 class="page-title">Returns &amp; <em>Refunds</em></h1>
+</div>
+<div class="content-wrap">
+  <div class="summary-grid">
+    <div class="summary-card"><div class="summary-num">7</div><div class="summary-label">Day Return Window</div></div>
+    <div class="summary-card"><div class="summary-num">24</div><div class="summary-label">Hour Response Time</div></div>
+    <div class="summary-card"><div class="summary-num">100%</div><div class="summary-label">Refund on Eligible Items</div></div>
+  </div>
+
+  <div class="section-block">
+    <div class="block-label">Our Policy</div>
+    <div class="block-title">Your Purchase is Protected</div>
+    <p class="block-text">At Nuvox, we are committed to your satisfaction. If you receive a product with a verified factory defect or that significantly differs from what was described, you may return it within 7 days of delivery for a full refund or replacement.</p>
+    <p class="block-text">We take every return request seriously and aim to resolve all issues fairly and promptly.</p>
+  </div>
+
+  <div class="section-block">
+    <div class="block-label">Eligibility</div>
+    <div class="block-title">What Can &amp; Cannot Be Returned</div>
+    <div class="eligible-grid">
+      <div class="eligible-card yes">
+        <div class="eligible-title">✓ Eligible for Return</div>
+        <ul>
+          <li>Factory defects present on arrival</li>
+          <li>Wrong item delivered</li>
+          <li>Item significantly different from description</li>
+          <li>Dead-on-arrival (DOA) devices</li>
+          <li>Item arrives visibly damaged from transit</li>
+        </ul>
+      </div>
+      <div class="eligible-card no">
+        <div class="eligible-title">✗ Not Eligible for Return</div>
+        <ul>
+          <li>Physical damage caused by customer</li>
+          <li>Items returned after 7 days</li>
+          <li>Products without original packaging</li>
+          <li>Damage from incorrect installation</li>
+          <li>Electrical damage from unstable power supply</li>
+          <li>Change of mind after use</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-block">
+    <div class="block-label">How to Return</div>
+    <div class="block-title">The Return Process</div>
+    <div class="steps-list">
+      <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Contact Us Within 7 Days</div><div class="step-text">Email us at emmaire7@gmail.com with your order reference number, a description of the issue, and clear photos of the defect.</div></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Await Confirmation</div><div class="step-text">We will review your request and respond within 24 hours. If approved, we will provide return instructions and a return address.</div></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Return the Item</div><div class="step-text">Send the item back in its original packaging with all accessories included. The item must be in the same condition as received.</div></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Refund or Replacement</div><div class="step-text">Once we receive and inspect the item, we will process your refund to the original payment method or dispatch a replacement within 3–5 business days.</div></div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-block">
+    <div class="block-label">Important Notes</div>
+    <div class="block-title">Please Read Carefully</div>
+    <div class="list-item"><div class="list-dot"></div><span>Return shipping costs are covered by Nuvox for eligible defective items. Customer bears the cost for non-eligible returns.</span></div>
+    <div class="list-item"><div class="list-dot"></div><span>Refunds are processed to the original payment method (Paystack or Flutterwave) and may take 3–7 business days to reflect in your account.</span></div>
+    <div class="list-item"><div class="list-dot"></div><span>All returns must be approved before sending. Do not send items back without prior confirmation from our team.</span></div>
+    <div class="list-item"><div class="list-dot"></div><span>Items must be returned with all original accessories, manuals, and packaging materials.</span></div>
+  </div>
+
+  <div class="contact-cta">
+    <div class="cta-text">Need to Start a Return?</div>
+    <div class="cta-sub">Contact our support team and we'll guide you through the process.</div>
+    <a href="/contact" class="cta-btn">Contact Support</a>
+  </div>
+</div>
+<footer>
+  <span class="footer-logo">NUVOX</span>
+  <span class="footer-copy">© 2026 Nuvox. All rights reserved.</span>
+  <span class="footer-copy">Made by Opsfera</span>
+</footer>
+</body>
+</html>

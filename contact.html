@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact Us — NUVOX</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--black:#080808;--deep:#0E0E0E;--surface:#141414;--border:rgba(201,168,76,0.18);--text:#F0EDE6;--muted:#7A7570;--white:#FAFAF8;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--black);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:24px 60px;background:rgba(8,8,8,.97);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:var(--gold);text-decoration:none;}
+.nav-back{color:var(--muted);text-decoration:none;font-size:13px;letter-spacing:2px;text-transform:uppercase;transition:color .2s;}
+.nav-back:hover{color:var(--gold);}
+.page-hero{padding:160px 60px 80px;border-bottom:1px solid var(--border);}
+.page-label{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.page-title{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,100px);font-weight:300;line-height:.9;color:var(--white);}
+.page-title em{font-style:italic;color:var(--gold);}
+.content-wrap{max-width:900px;margin:0 auto;padding:80px 60px;}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.contact-card{background:var(--surface);padding:40px 36px;}
+.contact-icon{font-size:32px;margin-bottom:20px;}
+.contact-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.contact-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--white);margin-bottom:12px;}
+.contact-text{font-size:14px;color:var(--muted);line-height:1.8;}
+.contact-link{color:var(--gold);text-decoration:none;font-size:15px;display:block;margin-top:12px;transition:color .2s;}
+.contact-link:hover{color:var(--gold-light);}
+.form-section{margin-top:2px;background:var(--surface);padding:48px;}
+.form-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--white);margin-bottom:8px;}
+.form-sub{font-size:13px;color:var(--muted);margin-bottom:36px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.form-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+.form-input,.form-select,.form-textarea{padding:14px 16px;background:var(--black);border:1px solid var(--border);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;-webkit-appearance:none;border-radius:0;}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--gold);}
+.form-select option{background:var(--black);}
+.form-textarea{resize:vertical;min-height:120px;line-height:1.6;}
+.submit-btn{background:var(--gold);color:var(--black);border:none;padding:16px 40px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:8px;}
+.submit-btn:hover{background:var(--gold-light);}
+.success-msg{display:none;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:#2ECC71;padding:16px 20px;font-size:13px;margin-top:16px;}
+footer{background:var(--black);border-top:1px solid var(--border);padding:40px 60px;display:flex;justify-content:space-between;align-items:center;}
+.footer-copy{font-size:12px;color:var(--muted);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--gold);}
+@media(max-width:768px){nav{padding:20px 24px;}.page-hero{padding:120px 24px 60px;}.content-wrap{padding:60px 24px;}.contact-grid{grid-template-columns:1fr;}.form-section{padding:32px 24px;}.form-grid{grid-template-columns:1fr;}footer{padding:32px 24px;flex-direction:column;gap:12px;text-align:center;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">NUVOX</a>
+  <a href="/" class="nav-back">← Back to Store</a>
+</nav>
+<div class="page-hero">
+  <div class="page-label">Get in Touch</div>
+  <h1 class="page-title">Contact <em>Us</em></h1>
+</div>
+<div class="content-wrap">
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">✉️</div>
+      <div class="contact-label">Email Support</div>
+      <div class="contact-title">Send Us a Message</div>
+      <div class="contact-text">For orders, returns, complaints, and general enquiries. We respond within 24 hours on business days.</div>
+      <a href="mailto:emmaire7@gmail.com" class="contact-link">emmaire7@gmail.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📍</div>
+      <div class="contact-label">Our Location</div>
+      <div class="contact-title">Port Harcourt, Nigeria</div>
+      <div class="contact-text">We are based in Port Harcourt, Rivers State and deliver nationwide across Nigeria.</div>
+      <span class="contact-link" style="cursor:default;">Rivers State, Nigeria</span>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">🕐</div>
+      <div class="contact-label">Business Hours</div>
+      <div class="contact-title">When We're Available</div>
+      <div class="contact-text">Monday – Friday: 9:00am – 6:00pm<br/>Saturday: 10:00am – 4:00pm<br/>Sunday: Closed</div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">📦</div>
+      <div class="contact-label">Order Enquiries</div>
+      <div class="contact-title">Track Your Order</div>
+      <div class="contact-text">Have your order reference number ready. You can track your order status directly on our website.</div>
+      <a href="/track" class="contact-link">Track Your Order →</a>
+    </div>
+  </div>
+  <div class="form-section">
+    <div class="form-title">Send a Message</div>
+    <div class="form-sub">Fill in the form below and we'll get back to you as soon as possible.</div>
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label">Full Name</label><input type="text" class="form-input" id="cName" placeholder="Your full name"/></div>
+      <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="cEmail" placeholder="your@email.com"/></div>
+    </div>
+    <div class="form-group"><label class="form-label">Subject</label>
+      <select class="form-select" id="cSubject">
+        <option value="">Select a subject</option>
+        <option>Order Enquiry</option>
+        <option>Return Request</option>
+        <option>Product Question</option>
+        <option>Payment Issue</option>
+        <option>Delivery Update</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group"><label class="form-label">Order Reference (if applicable)</label><input type="text" class="form-input" id="cRef" placeholder="e.g. NVX-1774003965372"/></div>
+    <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" id="cMessage" placeholder="Describe your issue or question in detail…"></textarea></div>
+    <button class="submit-btn" onclick="submitContact()">Send Message</button>
+    <div class="success-msg" id="successMsg">✓ Message sent! We'll reply to your email within 24 hours.</div>
+  </div>
+</div>
+<footer>
+  <span class="footer-logo">NUVOX</span>
+  <span class="footer-copy">© 2026 Nuvox. All rights reserved.</span>
+  <span class="footer-copy">Made by Opsfera</span>
+</footer>
+<script>
+function submitContact() {
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value;
+  const message = document.getElementById('cMessage').value.trim();
+  if (!name || !email || !subject || !message) { alert('Please fill in all required fields.'); return; }
+  if (!/\S+@\S+\.\S+/.test(email)) { alert('Please enter a valid email address.'); return; }
+  // Open email client with prefilled content
+  const ref = document.getElementById('cRef').value.trim();
+  const body = `Name: ${name}%0AEmail: ${email}%0AOrder Ref: ${ref||'N/A'}%0A%0A${message}`;
+  window.location.href = `mailto:emmaire7@gmail.com?subject=Nuvox: ${subject}&body=${body}`;
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+</body>
+</html>
