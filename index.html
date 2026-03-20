@@ -1003,12 +1003,12 @@ function updateCartUI(){
           <div class="cart-item-name">${item.name}</div>
           <div class="cart-item-price">${formatPrice(item.price)}</div>
           <div class="cart-item-qty">
-            <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+            <button class="qty-btn" onclick="changeQty('${item.id}',-1)">−</button>
             <span class="qty-num">${item.qty}</span>
-            <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+            <button class="qty-btn" onclick="changeQty('${item.id}',1)">+</button>
           </div>
         </div>
-        <button class="remove-item" onclick="removeFromCart(${item.id})">✕</button>
+        <button class="remove-item" onclick="removeFromCart('${item.id}')">✕</button>
       </div>
     `).join('');
     cartFooter.style.display='block';
@@ -1119,7 +1119,6 @@ if(checkoutProvider === 'paystack'){
         showToast('Payment cancelled — no charge made');
       }
     });
-    paystackHandler.openIframe();
 
   } else {
     FlutterwaveCheckout({
