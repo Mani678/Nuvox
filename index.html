@@ -1084,7 +1084,7 @@ async function processPayment(){
   // ── PAYSTACK ──
   if(checkoutProvider === 'paystack'){
     const handler = PaystackPop.setup({
-      key: 'pk_live_sk_test_7f4449235e498b24cca84bd409ab5ff63e5483af', // 🔑 Replace with your LIVE public key
+      key: 'pk_live_pk_test_fddafa0b4ac5a69adb4dd27cddaf8fd17add249a', // 🔑 Replace with your LIVE public key
       email, amount: totalKobo, currency: 'NGN', ref: orderRef,
       metadata: { custom_fields:[{display_name:'Customer',variable_name:'name',value:name},{display_name:'Phone',variable_name:'phone',value:phone}]},
       callback: function(response){
