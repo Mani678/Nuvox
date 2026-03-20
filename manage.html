@@ -593,6 +593,7 @@ document.getElementById('topbarDate').textContent = new Date().toLocaleDateStrin
 function doLogin() {
   const pass = document.getElementById('loginPass').value;
   if (pass === ADMIN_PASSWORD) {
+    sessionStorage.setItem('nuvox_admin', 'true');
     document.getElementById('loginScreen').classList.add('hidden');
     document.getElementById('app').classList.add('visible');
     initDB();
@@ -603,6 +604,7 @@ function doLogin() {
 }
 
 function doLogout() {
+  sessionStorage.removeItem('nuvox_admin');
   document.getElementById('app').classList.remove('visible');
   document.getElementById('loginScreen').classList.remove('hidden');
   document.getElementById('loginPass').value = '';
