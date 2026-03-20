@@ -1108,7 +1108,8 @@ async function processPayment(){
         {display_name:'Phone', variable_name:'phone', value:phone}
       ]},
       callback: function(response){
-        closeModal();
+  console.log('CALLBACK FIRED', response);
+  closeModal();
         showToast('Payment received — saving order…');
         saveOrder('paystack', response.reference).then(function(){
           showSuccess(response.reference);
