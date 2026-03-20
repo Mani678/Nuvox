@@ -587,6 +587,12 @@ let db = null;
 let allProducts = [];
 let allOrders = [];
 let deleteTargetId = null;
+  
+  if (sessionStorage.getItem('nuvox_admin') === 'true') {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('app').classList.add('visible');
+  initDB();
+}
 
 document.getElementById('topbarDate').textContent = new Date().toLocaleDateString('en-NG', {weekday:'short',day:'numeric',month:'short',year:'numeric'});
 
