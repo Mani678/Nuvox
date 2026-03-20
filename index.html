@@ -684,12 +684,8 @@ async function initSupabase() {
 function setDbStatus(connected) {
   const el = document.getElementById('dbStatus');
   const txt = document.getElementById('dbStatusText');
-  if (connected) {
-    el.classList.add('connected');
-    txt.textContent = 'DB Connected';
-  } else {
-    txt.textContent = 'DB Not Connected';
-  }
+  if (el) el.classList.toggle('connected', connected);
+  if (txt) txt.textContent = connected ? 'DB Connected' : 'DB Not Connected';
 }
 
 // ══════════════════════════════════════════════
