@@ -1089,10 +1089,25 @@ async function processPayment(){
       metadata: { custom_fields:[{display_name:'Customer',variable_name:'name',value:name},{display_name:'Phone',variable_name:'phone',value:phone}]},
       callback: function(response){
   closeModal();
-  showToast('Payment received! Order confirmed.');
-  cart=[]; updateCartUI();
-  document.getElementById('successRef').textContent='Order Reference: '+response.reference;
-  document.getElementById('successOverlay').classList.add('open');
+  showToast('Payment received — confirming order…');
+  var ref = response.reference;
+  var snap = JSON.parse(JSON.stringify(orderData));
+  fetch(SUPABASE_URL.replace('.supabase.co','.functions.supabase.co') + '/verify-payment', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ provider:'paystack', reference: ref, orderData: snap })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(result){
+    cart=[]; updateCartUI();
+    document.getElementById('successRef').textContent='Order Reference: ' + ref;
+    document.getElementById('successOverlay').classList.add('open');
+  })
+  .catch(function(){
+    cart=[]; updateCartUI();
+    document.getElementById('successRef').textContent='Order Reference: ' + ref;
+    document.getElementById('successOverlay').classList.add('open');
+  });
 },
       onClose: function(){
         showToast('Payment window closed — no charge made');
