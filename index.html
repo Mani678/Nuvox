@@ -1100,26 +1100,25 @@ async function processPayment(){
   }
 
   if(checkoutProvider === 'paystack'){
-    const handler = PaystackPop.setup({
+    var paystackHandler = PaystackPop.setup({
       key: 'pk_test_fddafa0b4ac5a69adb4dd27cddaf8fd17add249a',
-      email: email, amount: totalKobo, currency: 'NGN', ref: orderRef,
-      metadata: { custom_fields:[
-        {display_name:'Customer', variable_name:'name', value:name},
-        {display_name:'Phone', variable_name:'phone', value:phone}
-      ]},
-      callback: function(response){
-  console.log('CALLBACK FIRED', response);
-  closeModal();
+      email: email,
+      amount: totalKobo,
+      currency: 'NGN',
+      ref: orderRef,
+      onSuccess: function(transaction){
+        console.log('PAYSTACK SUCCESS', transaction);
+        closeModal();
         showToast('Payment received — saving order…');
-        saveOrder('paystack', response.reference).then(function(){
-          showSuccess(response.reference);
+        saveOrder('paystack', transaction.reference).then(function(){
+          showSuccess(transaction.reference);
         });
       },
-      onClose: function(){
+      onCancel: function(){
         showToast('Payment window closed — no charge made');
       }
     });
-    handler.openIframe();
+    paystackHandler.openIframe();
 
   } else {
     FlutterwaveCheckout({
