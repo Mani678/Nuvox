@@ -785,7 +785,7 @@ function renderProducts(filter='All'){
   const filtered=filter==='All'?products:products.filter(p=>p.category===filter);
   grid.innerHTML=filtered.map(p=>`
     <div class="product-card fade-up">
-      <div class="product-img" onclick="openPDP(${p.id})" style="cursor:none;">
+      <div class="product-img" onclick="openPDP('${p.id}')" style="cursor:none;">
         <span style="font-size:100px">${p.emoji}</span>
         ${p.badge?`<div class="product-badge">${p.badge}</div>`:''}
       </div>
@@ -799,8 +799,8 @@ function renderProducts(filter='All'){
             ${p.oldPrice?`<span class="product-price-old">${formatPrice(p.oldPrice)}</span>`:''}
           </div>
           <div class="product-actions">
-            <button class="view-detail-btn" onclick="openPDP(${p.id})">Details</button>
-            <button class="add-to-cart" onclick="addToCart(${p.id})" title="Add to cart">+</button>
+            <button class="view-detail-btn" onclick="openPDP('${p.id}')">Details</button>
+            <button class="add-to-cart" onclick="addToCart('${p.id}')" title="Add to cart">+</button>
           </div>
         </div>
       </div>
