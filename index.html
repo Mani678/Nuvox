@@ -1087,13 +1087,13 @@ async function processPayment(){
       key: 'pk_live_sk_test_7f4449235e498b24cca84bd409ab5ff63e5483af', // 🔑 Replace with your LIVE public key
       email, amount: totalKobo, currency: 'NGN', ref: orderRef,
       metadata: { custom_fields:[{display_name:'Customer',variable_name:'name',value:name},{display_name:'Phone',variable_name:'phone',value:phone}]},
-      callback: async function(response){
-        closeModal();
-        showToast('Payment received — confirming order…');
-        // Verify on server and save order securely
-        const result = await verifyAndSaveOrder('paystack', response.reference, orderData);
-        onPaymentSuccess(result.ref || response.reference, name);
-      },
+      callback: function(response){
+  closeModal();
+  showToast('Payment received! Order confirmed.');
+  cart=[]; updateCartUI();
+  document.getElementById('successRef').textContent='Order Reference: '+response.reference;
+  document.getElementById('successOverlay').classList.add('open');
+},
       onClose: function(){
         showToast('Payment window closed — no charge made');
       }
